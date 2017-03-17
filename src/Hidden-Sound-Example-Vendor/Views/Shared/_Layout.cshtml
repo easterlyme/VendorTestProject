@@ -7,7 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>ClientApp (OSOS sample)</title>
+    <title>Example Vendor</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
@@ -21,13 +21,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">AuthorizationServer</a>
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand">Example Vendor</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a>Cart</a></li>
                 </ul>
-                @await Html.PartialAsync("_Login")
+                @*@await Html.PartialAsync("_Login")*@
+
             </div>
         </div>
     </div>
