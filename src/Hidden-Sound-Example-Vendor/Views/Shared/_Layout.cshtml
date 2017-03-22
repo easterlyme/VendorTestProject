@@ -9,7 +9,10 @@
 
     <title>Example Vendor</title>
 
+    <script src="lib/jquery/dist/jquery.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/modern-business.css" />
 </head>
 
 <body>
@@ -24,26 +27,29 @@
                 <a asp-controller="Home" asp-action="Index" class="navbar-brand">Example Vendor</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-controller="Cart" asp-action="Index">Cart</a></li>
-                    @*<li><a>Cart</a></li>*@
+                <ul class="nav navbar-nav navbar-right">
+                    @*<li><a asp-controller="Home" asp-action="Index">Home</a></li>*@
+                    <li><a href="#">Browse</a></li>
+                    <li><a asp-controller="Cart" asp-action="Index"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart </a></li>
+                    @await Html.PartialAsync("_Login") 
                 </ul>
-                @await Html.PartialAsync("_Login")
+                @*@await Html.PartialAsync("_Login")*@
 
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="header">
-            <h3 class="text-muted">Your application (ClientApp)</h3>
-        </div>
+    @*<div class="container container-fluid">*@
+        
     @RenderBody()
 
-    <div class="footer">
-        <p>&copy; Your company 2014</p>
-    </div>
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; Your Website 2014</p>
+            </div>
+        </div>
+    </footer>
 
-</div>
+@*</div>*@
 </body>
 </html>
