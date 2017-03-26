@@ -46,6 +46,11 @@ namespace VendorTestProject
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("HiddenSound", p => p.WithOrigins("https://localhost:44333").AllowAnyMethod().AllowAnyHeader());
+            });
+
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext, int>()
                 .AddDefaultTokenProviders();
@@ -71,51 +76,19 @@ namespace VendorTestProject
             //    LoginPath = new PathString("/signin")
             //});
 
+            // app.UseCors("HiddenSound");
+
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
-                ClientId = "mvc",
-                ClientSecret = "901564A5-E7FE-42CB-B10D-61EF6A8F3654",
+                ClientId = "t4JTk7f8K3NmGv0q9X5Scs6I2",
+                ClientSecret = "y4YHo7s6A8ChBp01Oue2MKr93Jdk5X6WqPt8n3I2FaDj15Rfw9",
                 PostLogoutRedirectUri = "http://localhost:52191/",
 
                 RequireHttpsMetadata = false,
                 GetClaimsFromUserInfoEndpoint = true,
                 SaveTokens = true,
-                Events = new OpenIdConnectEvents()
-                {
-                  OnTicketReceived = async ctx =>
-                  {
-                      var service = ctx.HttpContext.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
-                      var user1 = await service.GetUserAsync(ctx.HttpContext.User);
-                      var user2 = await service.GetUserAsync(ctx.Principal);
-
-                      await Task.FromResult(0);
-                  },
-                  OnTokenResponseReceived = async ctx =>
-                  {
-                      // ctx.SkipToNextMiddleware();
-                      var service = ctx.HttpContext.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
-                      var user1 = await service.GetUserAsync(ctx.HttpContext.User);
-
-                      await Task.FromResult(0);
-                  },
-                  OnRedirectToIdentityProvider = ctx =>
-                  {
-                      ctx.SkipToNextMiddleware();
-                      ctx.HttpContext.Items.Add("CurrentUser", ctx.HttpContext.User);
-                      return Task.FromResult(0);
-                  }
-                  ,
-                    OnMessageReceived = ctx =>
-                    {
-                        return Task.FromResult(0);
-                    },
-                    OnAuthorizationCodeReceived = ctx =>
-                    {
-                        return Task.FromResult(0);
-                    }
-                },
 
                 // Use the authorization code flow.
                 ResponseType = OpenIdConnectResponseType.Code,
@@ -124,9 +97,22 @@ namespace VendorTestProject
                 // Note: setting the Authority allows the OIDC client middleware to automatically
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
-                Authority = "http://localhost:60584/",
+                Authority = "https://localhost:44333/",
 
-                Scope = { "email", "roles" }
+                CallbackPath = new PathString("/Cart/Test"),
+                Events = new OpenIdConnectEvents
+                {
+                    OnAuthorizationCodeReceived = context =>
+                    {
+
+                        return Task.FromResult(0);
+                    },
+                    OnRedirectToIdentityProvider = context =>
+                    {
+
+                        return Task.FromResult(0);
+                    }
+                }
             });
 
             app.UseMvcWithDefaultRoute();
