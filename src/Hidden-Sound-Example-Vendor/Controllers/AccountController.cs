@@ -13,19 +13,6 @@ namespace VendorTestProject.Controllers
 {
     public class AccountController : Controller
     {
-        private ApplicationDbContext ApplicationDbContext { get; }
-
-        private SignInManager<ApplicationUser> SignInManager { get; }
-
-        private UserManager<ApplicationUser> UserManager { get; }
-
-        public AccountController(ApplicationDbContext applicationDbContext, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
-        {
-            ApplicationDbContext = applicationDbContext;
-            SignInManager = signInManager;
-            UserManager = userManager;
-        }
-
         [AllowAnonymous]
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
@@ -40,26 +27,6 @@ namespace VendorTestProject.Controllers
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid)
-            {
-                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    return RedirectToLocal(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    //return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    //return View("Lockout");
-                }
-
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                return View(model);
-            }
-
             return View(model);
         }
 
@@ -67,7 +34,6 @@ namespace VendorTestProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
-            await SignInManager.SignOutAsync();
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
@@ -79,14 +45,6 @@ namespace VendorTestProject.Controllers
             }
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
-        }
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
         }
     }
 }
