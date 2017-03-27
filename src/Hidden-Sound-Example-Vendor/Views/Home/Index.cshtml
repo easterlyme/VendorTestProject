@@ -1,5 +1,12 @@
 ﻿@model string
 
+<style>
+    .thumbnail > img {
+        height: 200px;
+    }
+</style>
+
+
 @*<div class="jumbotron">
     @if (User?.Identity?.IsAuthenticated ?? false)
     {
@@ -42,22 +49,22 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
         <div class="item active">
-            <div class="fill" style="background-image:url('https://placeholdit.imgix.net/~text?txtsize=158&txt=Slide+One&w=1900&h=1080');"></div>
-            <div class="carousel-caption">
+            <div class="fill" style="background-image:url('/images/MonopolyBanner.jpg');"></div>
+            @*<div class="carousel-caption">
                 <h2>Caption 1</h2>
-            </div>
+            </div>*@
         </div>
         <div class="item">
-            <div class="fill" style="background-image:url('https://placeholdit.imgix.net/~text?txtsize=158&txt=Slide+One&w=1900&h=1080');"></div>
-            <div class="carousel-caption">
+            <div class="fill" style="background-image:url('/images/RiskBanner.png');"></div>
+            @*<div class="carousel-caption">
                 <h2>Caption 2</h2>
-            </div>
+            </div>*@
         </div>
         <div class="item">
-            <div class="fill" style="background-image:url('https://placeholdit.imgix.net/~text?txtsize=158&txt=Slide+One&w=1900&h=1080');"></div>
-            <div class="carousel-caption">
+            <div class="fill" style="background-image:url('/images/ChessBanner.png');"></div>
+            @*<div class="carousel-caption">
                 <h2>Caption 3</h2>
-            </div>
+            </div>*@
         </div>
     </div>
     <!-- Controls -->
@@ -71,57 +78,16 @@
 
 <!-- Page Content -->
 <div class="container">
-    <!-- Marketing Icons Section -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                Welcome to Example Vendor
-            </h1>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4><i class="fa fa-fw fa-check"></i> Bootstrap v3.3.7</h4>
-                </div>
-                <div class="panel-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                    <a href="#" class="btn btn-default">Learn More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4><i class="fa fa-fw fa-gift"></i> Free &amp; Open Source</h4>
-                </div>
-                <div class="panel-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                    <a href="#" class="btn btn-default">Learn More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4><i class="fa fa-fw fa-compass"></i> Easy to Use</h4>
-                </div>
-                <div class="panel-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                    <a href="#" class="btn btn-default">Learn More</a>
-                </div>
-            </div>
-        </div>
-    </div><!-- /.row -->
-
+    
     <h2 class="page-header">
         Featured Products
     </h2>
     <div class="row text-center">
         <div class="col-md-3 col-sm-6 hero-feature">
             <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
+                <img src="/images/featured/monopoly.png" alt="">
                 <div class="caption">
-                    <h3>Feature Item</h3>
+                    <h3>Monopoly</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     <p>
                         <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
@@ -131,9 +97,9 @@
         </div>
         <div class="col-md-3 col-sm-6 hero-feature">
             <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
+                <img src="/images/featured/chess.png" alt="">
                 <div class="caption">
-                    <h3>Feature Item</h3>
+                    <h3>Chess</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     <p>
                         <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
@@ -143,9 +109,9 @@
         </div>
         <div class="col-md-3 col-sm-6 hero-feature">
             <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
+                <img src="/images/featured/scrabble.jpg" alt="">
                 <div class="caption">
-                    <h3>Feature Item</h3>
+                    <h3>Scrabble</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     <p>
                         <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
@@ -155,9 +121,9 @@
         </div>
         <div class="col-md-3 col-sm-6 hero-feature">
             <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
+                <img src="/images/featured/catan.png" alt="">
                 <div class="caption">
-                    <h3>Feature Item</h3>
+                    <h3>Catan</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     <p>
                         <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
@@ -167,9 +133,9 @@
         </div>
         <div class="col-md-3 col-sm-6 hero-feature">
             <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
+                <img src="/images/featured/trouble.jpg" alt="">
                 <div class="caption">
-                    <h3>Feature Item</h3>
+                    <h3>Trouble</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     <p>
                         <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
@@ -179,9 +145,9 @@
         </div>
         <div class="col-md-3 col-sm-6 hero-feature">
             <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
+                <img src="/images/featured/uno.png" alt="">
                 <div class="caption">
-                    <h3>Feature Item</h3>
+                    <h3>Uno</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     <p>
                         <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
@@ -191,9 +157,9 @@
         </div>
         <div class="col-md-3 col-sm-6 hero-feature">
             <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
+                <img src="/images/featured/connect-4.png" alt="">
                 <div class="caption">
-                    <h3>Feature Item</h3>
+                    <h3>Connect 4</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     <p>
                         <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
@@ -203,9 +169,9 @@
         </div>
         <div class="col-md-3 col-sm-6 hero-feature">
             <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
+                <img src="/images/featured/risk.png" alt="">
                 <div class="caption">
-                    <h3>Feature Item</h3>
+                    <h3>Risk</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     <p>
                         <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
@@ -221,7 +187,7 @@
 
 <script>
     $('.carousel').carousel({
-        interval: 5000 //changes the speed
+        interval: 3000 //changes the speed
     })
 </script>
 
