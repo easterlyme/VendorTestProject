@@ -1,0 +1,18 @@
+﻿.btn-purple {
+    color: white;
+    background-color: #390a8c;
+    border-color: #390a8c;
+}
+
+.btn-purple:hover, .btn-purple:focus, .btn-purple:active, .btn-purple.active {
+    color: white;
+    background-color: #2f0874;
+    border-color: #26075c;
+}
+
+.btn-purple.disabled:hover, .btn-purple.disabled:focus, .btn-purple.disabled:active, .btn-purple.disabled.active, .btn-purple[disabled]:hover, .btn-purple[disabled]:focus,
+.btn-purple[disabled]:active, .btn-purple[disabled].active, purple[disabled] .btn-purple:hover, fieldset[disabled] .btn-purple:focus, fieldset[disabled] .btn-purple:active, fieldset[disabled] .btn-purple.active {
+    color: white;
+    background-color: #390a8c;
+    border-color: #390a8c;
+}

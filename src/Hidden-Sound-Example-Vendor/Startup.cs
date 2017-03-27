@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace VendorTestProject
@@ -26,6 +27,14 @@ namespace VendorTestProject
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+
+            if (env.IsDevelopment())
+            {
+#pragma warning disable 618
+                builder.AddUserSecrets();
+#pragma warning restore 618
+            }
+
             Configuration = builder.Build();
         }
 
@@ -35,27 +44,17 @@ namespace VendorTestProject
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddOptions();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("Local"));
-            });
+            services.Configure<HiddenSoundOptions>(Configuration.GetSection("HiddenSound"));
 
             services.AddAuthentication(options => {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("HiddenSound", p => p.WithOrigins("https://localhost:44333").AllowAnyMethod().AllowAnyHeader());
-            });
-
-            services.AddIdentity<ApplicationUser, ApplicationRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext, int>()
-                .AddDefaultTokenProviders();
-
             services.AddSingleton<HttpClient>();
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,26 +64,14 @@ namespace VendorTestProject
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
-
-            // Insert a new cookies middleware in the pipeline to store the user
-            // identity after he has been redirected from the identity provider.
-            //app.UseCookieAuthentication(new CookieAuthenticationOptions
-            //{
-            //    AutomaticAuthenticate = false,
-            //    AutomaticChallenge = false,
-            //    LoginPath = new PathString("/signin")
-            //});
-
-            // app.UseCors("HiddenSound");
+            var hiddenSoundOptions = app.ApplicationServices.GetService<IOptions<HiddenSoundOptions>>().Value;
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
-                ClientId = "t4JTk7f8K3NmGv0q9X5Scs6I2",
-                ClientSecret = "y4YHo7s6A8ChBp01Oue2MKr93Jdk5X6WqPt8n3I2FaDj15Rfw9",
-                PostLogoutRedirectUri = "http://localhost:52191/",
+                ClientId = hiddenSoundOptions.ClientId,
+                ClientSecret = hiddenSoundOptions.ClientSecret,
 
                 RequireHttpsMetadata = false,
                 GetClaimsFromUserInfoEndpoint = true,
@@ -97,22 +84,9 @@ namespace VendorTestProject
                 // Note: setting the Authority allows the OIDC client middleware to automatically
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
-                Authority = "https://localhost:44333/",
+                Authority = hiddenSoundOptions.ApiUri,
 
-                CallbackPath = new PathString("/Cart/Test"),
-                Events = new OpenIdConnectEvents
-                {
-                    OnAuthorizationCodeReceived = context =>
-                    {
-
-                        return Task.FromResult(0);
-                    },
-                    OnRedirectToIdentityProvider = context =>
-                    {
-
-                        return Task.FromResult(0);
-                    }
-                }
+                CallbackPath = new PathString("/OAuth/Authorize")
             });
 
             app.UseMvcWithDefaultRoute();
