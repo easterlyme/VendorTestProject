@@ -39,6 +39,52 @@ iframe {
     justify-content: center;
 }
 
+.result {
+    display: flex;
+    padding-top: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-approve {
+    font-size: 10em;
+    color: #5cb85c;
+    position: absolute;
+    top: 250px;
+}
+
+.fa-decline {
+    font-size: 10em;
+    color: #d9534f;
+    position: absolute;
+    top: 250px;
+}
+
+button.close {
+    background-color: white;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+}
+
+.modal-header {
+    background-color: #390a8c;
+    color: white;
+    text-align: center;
+}
+
 #authPage {
     padding: 100px;
+    margin: 20px 0;
+}
+
+#authPage div {
+    margin: 5px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.center-align {
+    display: flex;
+    justify-content: center;
 }

@@ -1,20 +1,22 @@
 ﻿@model VendorTestProject.Models.Cart.AuthorizeViewModel
 
-<div>
+<div class="center-align">
     <div class="container" id="authPage">
-        <h1>Scan to authorize this purchase</h1>
-        <img width="256" height="256" src="@Model.QRCode" />
-        <br />
-        <br />
         <div>
-            <div id="status">
-                @{ Html.RenderPartial("_AuthorizeStatus", Model); }
-            </div>
+            <h1>Scan to authorize this purchase</h1>
+        </div>
+        <div>
+            <img width="256" height="256" src="@Model.QRCode" />
+        </div>
+        <div id="status">
+            @{ Html.RenderPartial("_AuthorizeStatus", Model); }
+        </div>
+        <div>
             <form asp-controller="Cart" asp-action="AuthorizeStatus" data-ajax="true" data-ajax-method="POST" data-ajax-update="#status" data-ajax-mode="replace">
                 <br />
                 <input type="hidden" asp-for="State" value="@Model.State" />
                 <input type="hidden" asp-for="AuthorizationCode" value="@Model.AuthorizationCode" />
-                <button type="submit" class="btn btn-default">Update Status</button>
+                <button type="submit" class="btn btn-purple">Update Status</button>
             </form>
         </div>
     </div>
